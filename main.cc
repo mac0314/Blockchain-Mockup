@@ -1,34 +1,45 @@
 #include <iostream>
 #include <string>
+#include <boost/lexical_cast.hpp>
+
 #include "block.h"
-#include "sha256.h"
+#include "utiltime.h"
+#include "mining.h"
+
+#define BLOCK_MAX 10
 
 using namespace std;
 
-Block* b[50];
+string testData[BLOCK_MAX] = {"Genesis Block"};
+
+Block* b[BLOCK_MAX];
 
 int main(void){
-	string data = "Test #1";
-	b[0] = new Block("Test #1", "Genesis Block");
+	ios::sync_with_stdio(false);
 
-	cout << 0 << " " <<  b[0]->preHash << " " << b[0]->hash << endl;
+	cout << "------------------------" << "\n";
+	cout << "Start Blockchain mockup!" << "\n\n";
+	
 
-	int i = 1;
-	while(true){
-		string data;
-		cin >> data;
+	// Setting test block data
+	cout << "Data" << "\n";
+	cout << testData[0] << "\n";
+	for(int i=1; i<BLOCK_MAX; i++){
+		testData[i] += "Block #" + boost::lexical_cast<string>(i);
+		cout << testData[i] << "\n";
+	}
+	
+	cout << "\n\n";
 
-		Block* nb = new Block(data, b[i-1]->hash);
+	for(int i=0; i<BLOCK_MAX; i++){
+		
+		if(i==0){
+			b[i] = new Block(miningBlock(" ", testData[i], getTime(), 5));
+		}else{
+			b[i] = new Block(miningBlock(b[i-1]->hash, testData[i], getTime(), 5));
+		}
 
-		cout << "nb " << nb->preHash << " " << nb->hash << " " << nb->getTime() << endl;
-
-		b[i] = nb;
-
-		cout << i << " " << b[i]->preHash << " " << b[i]->hash << " " << b[i]->getTime() << endl;
-
-		i++;
-		if(i == 50)
-			break;
+		cout << "Block #" << i+1 << " " << b[i]->hash << " " << testData[i] << " " << getTime() << "\n\n";
 	}
 
 

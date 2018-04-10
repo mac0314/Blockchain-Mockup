@@ -11,22 +11,13 @@
 class Block {
 	public:
 		std::string hash;
-		std::string preHash;
 
-		Block(std::string hash, std::string preHash);
+		Block(std::string hash);
 
-		
 		~Block();
-
-		void setTime();
-
-		int64_t getTime() const {
-			return timestamp;
-		};
 	private:
-		int64_t timestamp;
-		int64_t nonce;
-		
+		size_t _size;
+		bool _owned;
 };
 
 #endif
