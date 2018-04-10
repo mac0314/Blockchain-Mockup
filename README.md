@@ -1,1 +1,1 @@
-# EOS-Tutorial
+# Blockchain-Mockup
