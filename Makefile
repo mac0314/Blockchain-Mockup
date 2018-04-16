@@ -1,13 +1,21 @@
 CC = gcc
-CXX = g++
+CXX = g++ -std=c++11
 RM = rm -f
 
 # INCLUDE BASE DIRECTORY AND BOOST DIRECTORY FOR HEADERS
 LDFLAGS = -I/usr/local/Cellar/boost/1.66.0/include -I/opt/local/include
 
+FLAGS = -L/usr/local/lib/ -lboost_system
 
-result : utiltime.o sha256.o hash.o mining.o block.o main.o
-	$(CXX) -o result utiltime.o sha256.o hash.o mining.o block.o main.o
+
+result : client.o server.o utiltime.o sha256.o hash.o mining.o block.o main.o
+	$(CXX) $(FLAGS) -o result client.o server.o utiltime.o sha256.o hash.o mining.o block.o main.o
+
+server.o : src/udp/server.cpp
+	$(CXX) -c -o server.o src/udp/server.cpp
+
+client.o : src/udp/client.cpp
+	$(CXX) -c -o client.o src/udp/client.cpp
 
 utiltime.o : src/util/utiltime.cc
 	$(CXX) -c -o utiltime.o src/util/utiltime.cc
@@ -27,5 +35,5 @@ block.o : src/block.cc
 main.o : src/main.cc
 	 $(CXX) -c -o main.o src/main.cc
 
-clean : 
+clean :
 	$(RM) *.o result

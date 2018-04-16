@@ -4,7 +4,8 @@
 #include <string>
 #include <stddef.h>
 #include <stdint.h>
+#include "block.h"
 
-extern std::string miningBlock(std::string preHash, std::string data, int64_t timestamp, int64_t difficulty);
+extern Block* miningBlock(std::string preHash, std::string data, int64_t timestamp, int64_t difficulty);
 
 #endif
