@@ -8,4 +8,6 @@
 
 typedef std::vector<Block*> Blockchain;
 
+extern Blockchain blockchain;
+
 #endif

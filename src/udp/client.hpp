@@ -11,12 +11,15 @@
 #include <cstdlib>
 #include <cstring>
 #include <iostream>
+#include <vector>
 #include <boost/asio.hpp>
+
+#include "../block/block.h"
 
 using boost::asio::ip::udp;
 
 enum { max_length = 1024 };
 
-extern void startClient(char* ip, char* port);
+extern void startClient(Block* block, char* ip, char* port);
 
 #endif

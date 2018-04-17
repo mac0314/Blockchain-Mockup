@@ -8,8 +8,8 @@
 
 #include <boost/lexical_cast.hpp>
 
-#include "crypto/sha256.h"
+#include "../crypto/sha256.h"
 
-extern std::string calcHash(std::string preHash, std::string data, int64_t timestamp, int64_t nonce);
+extern std::string calcHash(std::string preHash, std::string data, int64_t timestamp, uint32_t nonce);
 
 #endif
